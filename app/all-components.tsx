@@ -302,7 +302,7 @@ export function DevHero() {
             </motion.div>
             
             <motion.h1 initial={{ opacity: 0, y: 5 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }} viewport={{ once: true }} className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-              Création de sites internet pour artisans
+              Création de site internet pour artisans
               
             </motion.h1>
             
@@ -326,7 +326,7 @@ export function DevHero() {
             </motion.div>
 
             <div className="grid grid-cols-3 gap-6">
-              {[{ icon: TrendingUp, value: "+300%", label: "Appels clients" }, { icon: Zap, value: "100/100", label: "Score SEO" }, { icon: Award, value: "50+", label: "Artisans satisfaits" }].map((stat, idx) => (
+              {[{ icon: TrendingUp, value: "+200%", label: "Appels clients" }, { icon: Zap, value: "100/100", label: "Score SEO" }, { icon: Award, value: "1+", label: "Artisans satisfaits" }].map((stat, idx) => (
                 <motion.div key={idx} whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 5 }} transition={{ duration: 0.5, delay: 0.5 + idx * 0.1 }} viewport={{ once: true }} className="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-center justify-center gap-1 mb-1">
                     <stat.icon className={`w-5 h-5 ${idx === 0 ? 'text-green-600' : idx === 1 ? 'text-yellow-600' : 'text-blue-600'}`} />
@@ -587,7 +587,7 @@ export function DevPricing() {
   const plans = [
     {
       name: "Site Vitrine Essentiel",
-      price: "500€",
+      price: "800€",
       description: "Parfait pour démarrer votre présence en ligne",
       popular: false,
       features: [
@@ -610,7 +610,6 @@ export function DevPricing() {
         "Tout du plan Essentiel +",
         "8 pages locales et personnalisées",
         "Optimisation SEO avancée (schema markup, rich snippets)",
-        "Blog intégré pour référencement",
         "Galerie photos réalisations illimitée",
         "Système de témoignages clients",
         "Intégration réseaux sociaux",
@@ -618,6 +617,7 @@ export function DevPricing() {
         "Click-to-call optimisé mobile",
         "Modifications illimitées 1er mois",
         "Support prioritaire 3 mois",
+
         
       ]
     },
@@ -636,7 +636,6 @@ export function DevPricing() {
         "Génération devis automatique",
         "Chatbot IA pour questions 24/7",
         "A/B testing conversion",
-        "Campagne Google Ads initiale incluse (300€)",
         "Support illimité 6 mois",
         "Audit & optimisation mensuelle"
       ]
@@ -746,26 +745,14 @@ export function DevPricing() {
 export function DevPortfolio() {
   const projects = [
     {
-      title: "Électricité Pro Paris",
+      title: "Maytec electricité",
       category: "Électricien",
       results: "+250% d'appels en 2 mois",
-      image: "https://images.unsplash.com/photo-1763437153598-78b5579ddefa?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB3ZWJzaXRlJTIwZGVzaWduJTIwbW9ja3VwfGVufDF8fHx8MTc3MTY3MzA3OXww&ixlib=rb-4.1.0&q=80&w=1080",
-      tags: ["Next.js", "SEO Local", "Google Ads"]
+      image: "/frame1.png",
+      tags: ["Next.js", "SEO Local", "TailwindCss"],
+      url: "https://may-tec.net/electricien-agricole-normandie"
     },
-    {
-      title: "Menuiserie Artisan Bois",
-      category: "Menuisier",
-      results: "1ère page Google en 3 semaines",
-      image: "https://images.unsplash.com/photo-1666723043169-22e29545675c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB3b3Jrc3BhY2UlMjBkZXNrfGVufDF8fHx8MTc3MTY4ODA5MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      tags: ["Tailwind CSS", "Portfolio", "Blog SEO"]
-    },
-    {
-      title: "Plomberie Express 78",
-      category: "Plombier",
-      results: "+180% de demandes devis",
-      image: "https://images.unsplash.com/photo-1551641145-a1e18544acb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wZXIlMjBjb2RpbmclMjBsYXB0b3B8ZW58MXx8fHwxNzcxNzcyMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      tags: ["Urgences 24/7", "Click-to-call", "Chat en ligne"]
-    }
+    
   ];
 
   return (
@@ -819,17 +806,21 @@ export function DevPortfolio() {
                     <TrendingUp className="w-5 h-5 text-green-600" />
                     <span className="text-green-600 font-semibold">{project.results}</span>
                   </div>
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className=" text-black flex flex-wrap gap-2 mb-4">
                     {project.tags.map((tag, tagIndex) => (
-                      <Badge key={tagIndex} variant="outline" className="text-xs">
+                      <Badge key={tagIndex} variant="outline" className=" black text-black text-xs">
                         {tag}
                       </Badge>
                     ))}
                   </div>
+                  </CardContent>
+                  <CardContent className="p-6">
+                  <Link href={project.url} target="_blank">
                   <button className="flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition-colors group">
                     Voir le site
                     <ExternalLink className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </button>
+                  </Link>
                 </CardContent>
               </Card>
             </motion.div>
@@ -846,7 +837,7 @@ export function DevPortfolio() {
           <p className="text-gray-600 mb-6 text-lg">
             Confidentialité client oblige, certains projets ne peuvent être affichés publiquement
           </p>
-          <div className="inline-flex items-center gap-8 bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+          <div className="inline-flex items-center gap-8 bg-white rounded-2xl p-8 shadow-lg border border-gray-100 lg:flex-row flex-col">
             <div className="text-center">
               <div className="text-4xl font-bold text-blue-600 mb-2">1+</div>
               <div className="text-gray-600">Sites créés</div>
@@ -954,7 +945,7 @@ export function DevTestimonials() {
           viewport={{ once: true }}
         >
           <p className="text-gray-600 text-lg">
-            ⭐⭐⭐⭐⭐ Note moyenne 4.9/5 sur Google Business (52 avis)
+            ⭐⭐⭐⭐⭐ Note moyenne 5/5 sur Google Business (1 avis)
           </p>
         </motion.div>
       </div>
@@ -993,7 +984,7 @@ export function DevCTA() {
 
           <div className="grid md:grid-cols-3 gap-6 mb-12">
             {[
-              { icon: Phone, label: "Appelez-moi", value: "06 12 34 56 78", time: "Lun-Ven 9h-19h" },
+              { icon: Phone, label: "Appelez-moi", value: "07 83 58 57 92", time: "Lun-Ven 17h30-20h" },
               { icon: Mail, label: "Écrivez-moi", value: "contact@webprestige.fr", time: "Réponse sous 2h" },
               { icon: Calendar, label: "Prenez RDV", value: "Visio ou Téléphone", time: "Créneaux disponibles" }
             ].map((item, idx) => (
@@ -1007,7 +998,7 @@ export function DevCTA() {
               >
                 <item.icon className="w-10 h-10 mx-auto mb-4" />
                 <div className="font-bold text-lg mb-2">{item.label}</div>
-                <a href={idx === 0 ? "tel:+33612345678" : idx === 1 ? "mailto:contact@webprestige.fr" : "#"} className={`${idx === 0 ? "text-xl" : "text-lg"} font-semibold hover:underline ${idx === 2 ? "cursor-default" : ""}`}>
+                <a href={idx === 0 ? "tel:+33783585792" : idx === 1 ? "mailto:contact@webprestige.fr" : "#"} className={`${idx === 0 ? "text-xl" : "text-lg"} font-semibold hover:underline ${idx === 2 ? "cursor-default" : ""}`}>
                   {item.value}
                 </a>
                 <p className="text-sm text-white/80 mt-2">{item.time}</p>
@@ -1090,14 +1081,14 @@ export function DevFooter() {
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-gray-400">
                 <Phone className="w-5 h-5 text-blue-400" />
-                <a href="tel:+33612345678" className="hover:text-white transition-colors">
-                  06 12 34 56 78
+                <a href="tel:+33783585792" className="hover:text-white transition-colors">
+                  0783585792
                 </a>
               </div>
               <div className="flex items-center gap-3 text-gray-400">
                 <Mail className="w-5 h-5 text-blue-400" />
                 <a href="mailto:contact@webartisan-pro.fr" className="hover:text-white transition-colors">
-                  contact@webartisan-pro.fr
+                  contact@webprestige.fr
                 </a>
               </div>
               <div className="flex items-center gap-3 text-gray-400">
