@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://webprestige.fr'),
   title: 'WebPrestige - Sites Web Premium pour Artisans | +50% d\'Appels Clients',
   description: 'Développeur web spécialisé dans la création de sites premium pour artisans. Augmentez vos demandes de devis de 50% avec un site optimisé SEO et conversion. Plombiers, électriciens, menuisiers : boostez votre visibilité en ligne.',
   keywords: 'site web artisan, développeur web artisans, site vitrine plombier, site internet électricien, création site artisan, site web menuisier, SEO artisan, site premium artisan',
@@ -57,6 +58,7 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#2563EB" />
+        <meta name="google-site-verification" content="1TN-ya8tURkRhnlXkU8ZjSn57b503m3WUibQIoYW7V0" />
       </head>
       <body className="antialiased">
         {children}

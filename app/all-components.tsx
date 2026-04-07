@@ -236,11 +236,11 @@ export function DevHeader() {
           </div>
 
           <div className="flex items-center gap-4">
-              <Link href="#realisations">
+              <a href="#contact">
             <Button className="hidden sm:flex bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
               Audit Gratuit
             </Button>
-            </Link>
+            </a>
             <Button 
               variant="ghost" 
               size="icon" 
@@ -270,11 +270,11 @@ export function DevHeader() {
               <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 Contact
               </a>
-              <Link href="#realisations">
+              <a href="#contact">
               <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white w-full">
                 Audit Gratuit
               </Button>
-              </Link>
+              </a>
             </div>
           </div>
         )}
@@ -313,16 +313,16 @@ export function DevHero() {
             </motion.p>
 
             <motion.div initial={{ opacity: 0, y: 5 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.4 }} viewport={{ once: true }} className="flex flex-col sm:flex-row gap-4 mb-10">
-             <Link href="#contact"> <Button size="lg"  className="transition-all duration-300 ease-in-out bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white gap-2 shadow-lg shadow-blue-500/30">
+             <a href="#contact"> <Button size="lg"  className="transition-all duration-300 ease-in-out bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white gap-2 shadow-lg shadow-blue-500/30">
                 Audit SEO Gratuit
                 <ArrowRight className="w-5 h-5" />
               </Button>
-              </Link>
-              <Link href="#realisations">
+              </a>
+              <a href="#offres">
               <Button size="lg" variant="outline" className="border-2 border-blue-600 text-blue-600 bg-blue-50 hover:bg-blue-500 hover:text-white">
-                Voir mes Réalisations
+                Voir nos Offres
               </Button>
-              </Link>
+              </a>
             </motion.div>
 
             <div className="grid grid-cols-3 gap-6">
@@ -342,7 +342,7 @@ export function DevHero() {
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1551641145-a1e18544acb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wZXIlMjBjb2RpbmclMjBsYXB0b3B8ZW58MXx8fHwxNzcxNzcyMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Développement web professionnel avec Next.js et code moderne"
+                alt="Développement web spécialisé artisans avec Next.js et Tailwind CSS"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -412,7 +412,7 @@ export function DevServices() {
             Technologies de Pointe
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Sites Web Techniques Qui Génèrent des Résultats
+            Technologies Avancées pour Votre Site Artisan
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Expertise complète en développement web moderne. Je maîtrise toutes les technologies 
@@ -520,7 +520,7 @@ export function DevWhy() {
             <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1730382624360-9cf5609c8364?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGdyb3d0aCUyMGNoYXJ0JTIwc3VjY2Vzc3xlbnwxfHx8fDE3NzE2OTUzNzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Graphique montrant la croissance des appels clients et du chiffre d'affaires"
+                alt="Augmentation chiffre affaires et appels clients artisan grâce site web optimisé"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -556,7 +556,7 @@ export function DevWhy() {
           className="bg-white rounded-2xl shadow-xl p-8 md:p-12 border border-gray-100"
         >
           <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
-            Tout Inclus Pour Votre Réussite
+            Ce qui Est Inclus dans Votre Site Web
           </h3>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {features.map((feature, index) => (
@@ -587,7 +587,7 @@ export function DevPricing() {
   const plans = [
     {
       name: "Site Vitrine Essentiel",
-      price: "800€",
+      price: "499€",
       description: "Parfait pour démarrer votre présence en ligne",
       popular: false,
       features: [
@@ -603,7 +603,7 @@ export function DevPricing() {
     },
     {
       name: "Site Premium Pro",
-      price: "1500€",
+      price: "990€",
       description: "Le plus choisi par les artisans ambitieux",
       popular: true,
       features: [
@@ -618,12 +618,12 @@ export function DevPricing() {
         "Modifications illimitées 1er mois",
         "Support prioritaire 3 mois",
 
-        
+
       ]
     },
     {
       name: "Site Ultra Performance",
-      price: "3000€",
+      price: "2490€",
       description: "Pour dominer votre marché local",
       popular: false,
       features: [
@@ -651,7 +651,7 @@ export function DevPricing() {
             Offres & Tarifs Transparents
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-            Un Site Web Qui Se Rentabilise en Moins de 3 Mois
+            Tarifs Simples pour Votre Site Artisan
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
             Investissement unique, bénéfices sur le long terme. Avec en moyenne 15-20 appels clients supplémentaires 
@@ -827,7 +827,7 @@ export function DevPortfolio() {
           ))}
         </div>
 
-        <motion.div 
+        <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 5 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -837,22 +837,6 @@ export function DevPortfolio() {
           <p className="text-gray-600 mb-6 text-lg">
             Confidentialité client oblige, certains projets ne peuvent être affichés publiquement
           </p>
-          <div className="inline-flex items-center gap-8 bg-white rounded-2xl p-8 shadow-lg border border-gray-100 lg:flex-row flex-col">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-blue-600 mb-2">1+</div>
-              <div className="text-gray-600">Sites créés</div>
-            </div>
-            <div className="w-px h-16 bg-gray-200"></div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-green-600 mb-2">+200%</div>
-              <div className="text-gray-600">Appels moyens</div>
-            </div>
-            <div className="w-px h-16 bg-gray-200"></div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">100%</div>
-              <div className="text-gray-600">Satisfaction</div>
-            </div>
-          </div>
         </motion.div>
       </div>
     </section>
@@ -1014,13 +998,17 @@ export function DevCTA() {
             viewport={{ once: true }}
           >
           
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 shadow-2xl text-lg px-8">
-              <Phone className="w-5 h-5 mr-2" />
-              Audit Gratuit Immédiat
+            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100 shadow-2xl text-lg px-8" asChild>
+              <a href="#contact" className="flex items-center gap-2">
+                <Phone className="w-5 h-5" />
+                Audit Gratuit Immédiat
+              </a>
             </Button>
-            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 text-lg px-8">
-              Voir mes Offres
-              <ArrowRight className="w-5 h-5 ml-2" />
+            <Button size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white/10 text-lg px-8" asChild>
+              <a href="#offres" className="flex items-center gap-2">
+                Voir mes Offres
+                <ArrowRight className="w-5 h-5" />
+              </a>
             </Button>
           </motion.div>
 
@@ -1032,7 +1020,7 @@ export function DevCTA() {
             viewport={{ once: true }}
           >
             <h3 className="text-2xl font-bold text-white mb-4">
-              🚀 Offre Spéciale Février 2026
+              🚀 Offre Spéciale Avril 2026
             </h3>
             <p className="text-white/90 text-lg leading-relaxed">
               Les <strong>3 premiers artisans</strong> à me contacter ce mois-ci bénéficient de 
@@ -1087,7 +1075,7 @@ export function DevFooter() {
               </div>
               <div className="flex items-center gap-3 text-gray-400">
                 <Mail className="w-5 h-5 text-blue-400" />
-                <a href="mailto:contact@webartisan-pro.fr" className="hover:text-white transition-colors">
+                <a href="mailto:contact@webprestige.fr" className="hover:text-white transition-colors">
                   contact@webprestige.fr
                 </a>
               </div>
@@ -1170,7 +1158,7 @@ export function DevFooter() {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © {currentYear} WebArtisan Pro - Tous droits réservés. Développé avec ❤️ en Next.js & Tailwind CSS
+              © {currentYear} WebArtisan Pro - Tous droits réservés.
             </p>
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -1184,11 +1172,7 @@ export function DevFooter() {
               </a>
             </div>
           </div>
-          <div className="mt-6 text-center">
-            <p className="text-gray-500 text-sm">
-              SIRET: XXX XXX XXX 00012 • Auto-entrepreneur • TVA non applicable, art. 293 B du CGI
-            </p>
-          </div>
+          
         </motion.div>
       </div>
     </footer>

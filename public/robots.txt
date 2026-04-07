@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow les assets inutiles pour le SEO
+Disallow: /_next/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://webprestige.fr/sitemap.xml
