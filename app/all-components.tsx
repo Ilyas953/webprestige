@@ -20,27 +20,46 @@ export function cn(...inputs: ClassValue[]) {
 
 
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
-import { 
-  Code2, Menu, X, ArrowRight, TrendingUp, Zap, Award, 
-  Search, Rocket, Smartphone, BarChart3, Palette, Target, 
-  Clock, HeadphonesIcon, CheckCircle2, Check, Star, 
-  ExternalLink, Quote, Phone, Mail, Calendar, MapPin 
+import {
+  Code2, Menu, X, ArrowRight, TrendingUp, Zap, Award,
+  Search, Rocket, Smartphone, BarChart3, Palette, Target,
+  Clock, HeadphonesIcon, CheckCircle2, Check, Star,
+  ExternalLink, Quote, Phone, Mail, Calendar, MapPin
 } from "lucide-react";
 
 const ERROR_IMG_SRC =
   'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODgiIGhlaWdodD0iODgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgc3Ryb2tlPSIjMDAwIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBvcGFjaXR5PSIuMyIgZmlsbD0ibm9uZSIgc3Ryb2tlLXdpZHRoPSIzLjciPjxyZWN0IHg9IjE2IiB5PSIxNiIgd2lkdGg9IjU2IiBoZWlnaHQ9IjU2IiByeD0iNiIvPjxwYXRoIGQ9Im0xNiA1OCAxNi0xOCAzMiAzMiIvPjxjaXJjbGUgY3g9IjUzIiBjeT0iMzUiIHI9IjciLz48L3N2Zz4KCg==';
 
-export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElement>) {
+interface ImageWithFallbackProps {
+  src: string;
+  alt: string;
+  className?: string;
+  style?: React.CSSProperties;
+  width?: number;
+  height?: number;
+  fill?: boolean;
+  priority?: boolean;
+}
+
+export function ImageWithFallback({
+  src,
+  alt,
+  className,
+  style,
+  width = 1080,
+  height = 720,
+  fill = false,
+  priority = false
+}: ImageWithFallbackProps) {
   const [didError, setDidError] = useState(false);
 
   const handleError = () => {
     setDidError(true);
   };
-
-  const { src, alt, style, className, ...rest } = props;
 
   return didError ? (
     <div
@@ -48,11 +67,22 @@ export function ImageWithFallback(props: React.ImgHTMLAttributes<HTMLImageElemen
       style={style}
     >
       <div className="flex items-center justify-center w-full h-full">
-        <img src={ERROR_IMG_SRC} alt="Error loading image" {...rest} data-original-url={src} />
+        <img src={ERROR_IMG_SRC} alt="Error loading image" data-original-url={src} />
       </div>
     </div>
   ) : (
-    <img src={src} alt={alt} className={className} style={style} {...rest} onError={handleError} />
+    <Image
+      src={src}
+      alt={alt}
+      className={className}
+      style={style}
+      onError={handleError}
+      width={fill ? undefined : width}
+      height={fill ? undefined : height}
+      fill={fill}
+      priority={priority}
+      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+    />
   );
 }
 
@@ -339,11 +369,13 @@ export function DevHero() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, x: 5 }} whileInView={{ opacity: 1, x: 0 }} transition={{ duration: 0.6 }} viewport={{ once: true }} className="relative">
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-8 border-white">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl border-8 border-white relative">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1551641145-a1e18544acb9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3ZWIlMjBkZXZlbG9wZXIlMjBjb2RpbmclMjBsYXB0b3B8ZW58MXx8fHwxNzcxNzcyMDI4fDA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/photo1.jpg"
                 alt="Développement web spécialisé artisans avec Next.js et Tailwind CSS"
                 className="w-full h-full object-cover"
+                fill
+                priority
               />
             </div>
             
@@ -517,11 +549,12 @@ export function DevWhy() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true, margin: "-100px" }}
           >
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
+            <div className="aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl relative">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1730382624360-9cf5609c8364?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGdyb3d0aCUyMGNoYXJ0JTIwc3VjY2Vzc3xlbnwxfHx8fDE3NzE2OTUzNzR8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src="/photo2.jpg"
                 alt="Augmentation chiffre affaires et appels clients artisan grâce site web optimisé"
                 className="w-full h-full object-cover"
+                fill
               />
             </div>
           </motion.div>
@@ -793,6 +826,7 @@ export function DevPortfolio() {
                     src={project.image}
                     alt={`Site web ${project.title} - ${project.category}`}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    fill
                   />
                   <div className="absolute top-4 right-4">
                     <Badge className="bg-white/90 text-gray-900 hover:bg-white">
@@ -1012,8 +1046,8 @@ export function DevCTA() {
             </Button>
           </motion.div>
 
-          <motion.div 
-            className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-2xl p-8 max-w-2xl mx-auto"
+          <motion.div
+            className="bg-white/10 backdrop-blur-sm border-2 border-white/30 rounded-2xl p-8 max-w-2xl mx-auto mb-12"
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -1023,11 +1057,391 @@ export function DevCTA() {
               🚀 Offre Spéciale Avril 2026
             </h3>
             <p className="text-white/90 text-lg leading-relaxed">
-              Les <strong>3 premiers artisans</strong> à me contacter ce mois-ci bénéficient de 
-              <strong> -20% sur toutes les offres</strong> + <strong>2 mois de support supplémentaires offerts</strong>. 
+              Les <strong>3 premiers artisans</strong> à me contacter ce mois-ci bénéficient de
+              <strong> -20% sur toutes les offres</strong> + <strong>2 mois de support supplémentaires offerts</strong>.
               Ne laissez pas vos concurrents vous devancer !
             </p>
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+            viewport={{ once: true }}
+            className="max-w-2xl mx-auto w-full"
+          >
+            <h3 className="text-2xl font-bold text-white text-center mb-8">
+              Contactez-moi Maintenant
+            </h3>
+            <ContactFormInline />
+          </motion.div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ==========================================
+// 📧 CONTACT FORM INLINE (for DevCTA integration)
+// ==========================================
+
+function ContactFormInline() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+    service: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nom: formData.name,
+          email: formData.email,
+          telephone: formData.phone,
+          message: `[Service: ${formData.service}]\n${formData.message}`,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || `Erreur serveur (${res.status})`);
+      }
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', message: '', service: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi:', error);
+      alert(`Erreur lors de l'envoi : ${error instanceof Error ? error.message : "réessayez plus tard"}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      {submitted && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          className="bg-green-500/20 border-2 border-green-400 text-white p-4 rounded-lg mb-6 text-center backdrop-blur-sm"
+        >
+          <p className="font-semibold">✅ Merci ! Votre message a été envoyé avec succès.</p>
+          <p className="text-sm">Je vous recontacterai dans les 24h.</p>
+        </motion.div>
+      )}
+
+      <form onSubmit={handleSubmit} className="bg-white/10 backdrop-blur-sm border-2 border-white/30 p-8 rounded-2xl">
+        <div className="grid md:grid-cols-2 gap-6 mb-6">
+          <div>
+            <label className="block text-sm font-semibold text-white mb-2">
+              Votre Nom *
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 border border-white/20 rounded-lg bg-white/10 text-white placeholder-white/50 focus:ring-2 focus:ring-white focus:border-transparent outline-none transition"
+              placeholder="Jean Martin"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-white mb-2">
+              Email *
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-3 border border-white/20 rounded-lg bg-white/10 text-white placeholder-white/50 focus:ring-2 focus:ring-white focus:border-transparent outline-none transition"
+              placeholder="jean@exemple.com"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-white mb-2">
+              Téléphone
+            </label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-white/20 rounded-lg bg-white/10 text-white placeholder-white/50 focus:ring-2 focus:ring-white focus:border-transparent outline-none transition"
+              placeholder="07 83 58 57 92"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold text-white mb-2">
+              Métier / Service
+            </label>
+            <select
+              name="service"
+              value={formData.service}
+              onChange={handleChange}
+              className="w-full px-4 py-3 border border-white/20 rounded-lg bg-white/10 text-white focus:ring-2 focus:ring-white focus:border-transparent outline-none transition"
+            >
+              <option value="" className="bg-gray-900">Sélectionnez votre métier</option>
+              <option value="electricien" className="bg-gray-900">Électricien</option>
+              <option value="plombier" className="bg-gray-900">Plombier</option>
+              <option value="menuisier" className="bg-gray-900">Menuisier</option>
+              <option value="couvreur" className="bg-gray-900">Couvreur</option>
+              <option value="chauffagiste" className="bg-gray-900">Chauffagiste</option>
+              <option value="facade" className="bg-gray-900">Façade</option>
+              <option value="autre" className="bg-gray-900">Autre</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <label className="block text-sm font-semibold text-white mb-2">
+            Votre Message *
+          </label>
+          <textarea
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows={5}
+            className="w-full px-4 py-3 border border-white/20 rounded-lg bg-white/10 text-white placeholder-white/50 focus:ring-2 focus:ring-white focus:border-transparent outline-none transition resize-none"
+            placeholder="Parlez-moi de votre projet, vos besoins, vos questions..."
+          />
+        </div>
+
+        <motion.button
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          type="submit"
+          disabled={loading}
+          className="w-full bg-white text-blue-600 font-bold py-3 rounded-lg hover:bg-gray-100 transition-all shadow-lg disabled:opacity-50 flex items-center justify-center gap-2"
+        >
+          {loading ? (
+            <>
+              <span className="animate-spin">⏳</span> Envoi en cours...
+            </>
+          ) : (
+            <>
+              <Mail className="w-5 h-5" />
+              Envoyer mon Message
+            </>
+          )}
+        </motion.button>
+
+        <p className="text-xs text-white/60 mt-4 text-center">
+          * Champs obligatoires. Nous traitons vos données avec respect.
+        </p>
+      </form>
+    </>
+  );
+}
+
+// ==========================================
+// 📧 CONTACT FORM COMPONENT (standalone section)
+// ==========================================
+
+export function ContactForm({ title = "Prenez Contact", subtitle = "Remplissez le formulaire et je vous recontacterai dans les 24h" }: { title?: string; subtitle?: string }) {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    message: '',
+    service: ''
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nom: formData.name,
+          email: formData.email,
+          telephone: formData.phone,
+          message: `[Service: ${formData.service}]\n${formData.message}`,
+        }),
+      });
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({}));
+        throw new Error(errorData.error || `Erreur serveur (${res.status})`);
+      }
+
+      setSubmitted(true);
+      setFormData({ name: '', email: '', phone: '', message: '', service: '' });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (error) {
+      console.error('Erreur lors de l\'envoi:', error);
+      alert(`Erreur lors de l'envoi : ${error instanceof Error ? error.message : "réessayez plus tard"}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section id="contact" className="py-20 bg-gradient-to-br from-gray-50 to-blue-50">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="max-w-2xl mx-auto"
+        >
+          <div className="text-center mb-12">
+            <h3 className="text-4xl font-bold text-gray-900 mb-4">{title}</h3>
+            <p className="text-lg text-gray-600">{subtitle}</p>
+          </div>
+
+          {submitted && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0 }}
+              className="bg-green-50 border-2 border-green-500 text-green-800 p-4 rounded-lg mb-6 text-center"
+            >
+              <p className="font-semibold">✅ Merci ! Votre message a été envoyé avec succès.</p>
+              <p className="text-sm">Je vous recontacterai dans les 24h.</p>
+            </motion.div>
+          )}
+
+          <form onSubmit={handleSubmit} className="bg-white p-8 rounded-2xl shadow-lg border border-gray-200">
+            <div className="grid md:grid-cols-2 gap-6 mb-6">
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Votre Nom *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                  placeholder="Jean Martin"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                  placeholder="jean@exemple.com"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Téléphone
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition"
+                  placeholder="07 83 58 57 92"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Métier / Service
+                </label>
+                <select
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition bg-white"
+                >
+                  <option value="">Sélectionnez votre métier</option>
+                  <option value="electricien">Électricien</option>
+                  <option value="plombier">Plombier</option>
+                  <option value="menuisier">Menuisier</option>
+                  <option value="couvreur">Couvreur</option>
+                  <option value="chauffagiste">Chauffagiste</option>
+                  <option value="facade">Façade</option>
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Votre Message *
+              </label>
+              <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows={5}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition resize-none"
+                placeholder="Parlez-moi de votre projet, vos besoins, vos questions..."
+              />
+            </div>
+
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              type="submit"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg disabled:opacity-50 flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <span className="animate-spin">⏳</span> Envoi en cours...
+                </>
+              ) : (
+                <>
+                  <Mail className="w-5 h-5" />
+                  Envoyer mon Message
+                </>
+              )}
+            </motion.button>
+
+            <p className="text-xs text-gray-500 mt-4 text-center">
+              * Champs obligatoires. Nous traitons vos données avec respect.
+            </p>
+          </form>
         </motion.div>
       </div>
     </section>

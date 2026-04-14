@@ -1,16 +1,17 @@
 
 
 
-import { 
-  DevHeader, 
-  DevHero, 
-  DevServices, 
-  DevWhy, 
-  DevPricing, 
-  DevPortfolio, 
-  DevTestimonials, 
-  DevCTA, 
-  DevFooter 
+import {
+  DevHeader,
+  DevHero,
+  DevServices,
+  DevWhy,
+  DevPricing,
+  DevPortfolio,
+  DevTestimonials,
+  DevCTA,
+  ContactForm,
+  DevFooter
 } from "./all-components";
 
 export default function HomePage() {

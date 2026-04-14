@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { getPageData } from '@/app/lib/seo-data';
-import { DevHeader, DevFooter } from "@/app/all-components";
+import { DevHeader, DevFooter, ContactForm } from "@/app/all-components";
 import Link from 'next/link';
 import { CheckCircle2, ArrowRight, TrendingUp, Zap, Target, Users, Clock, Award, BarChart3 } from 'lucide-react';
 import { useEffect } from 'react';
@@ -331,6 +331,12 @@ export default function ServiceVillePage() {
             </motion.div>
           </div>
         </section>
+
+        {/* SECTION CONTACT */}
+        <ContactForm
+          title={`Prêt à Transformer Votre Présence EN Ligne ?`}
+          subtitle={`Obtenez un audit gratuit et découvrez comment augmenter vos appels clients`}
+        />
       </main>
       <DevFooter />
     </div>
