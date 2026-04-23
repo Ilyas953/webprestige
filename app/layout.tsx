@@ -5,10 +5,12 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://webprestige.fr'),
   title: 'WebPrestige - Sites Web Premium pour Artisans | +50% d\'Appels Clients',
   description: 'Développeur web spécialisé dans la création de sites premium pour artisans. Augmentez vos demandes de devis de 50% avec un site optimisé SEO et conversion. Plombiers, électriciens, menuisiers : boostez votre visibilité en ligne.',
-  keywords: 'site web artisan, développeur web artisans, site vitrine plombier, site internet électricien, création site artisan, site web menuisier, SEO artisan, site premium artisan',
   authors: [{ name: 'WebPrestige' }],
   creator: 'WebPrestige',
   publisher: 'WebPrestige',
+  alternates: {
+    canonical: 'https://webprestige.fr',
+  },
   openGraph: {
     type: 'website',
     locale: 'fr_FR',
@@ -43,8 +45,37 @@ export const metadata: Metadata = {
     },
   },
   verification: {
-    google: 'votre-code-google-search-console',
+    google: '1TN-ya8tURkRhnlXkU8ZjSn57b503m3WUibQIoYW7V0',
   },
+};
+
+const organizationJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'WebPrestige',
+  url: 'https://webprestige.fr',
+  logo: 'https://webprestige.fr/og-image.jpg',
+  description: 'Développeur web spécialisé création de sites premium pour artisans. Plombiers, électriciens, menuisiers, couvreurs.',
+  telephone: '+33783585792',
+  email: 'contact@webprestige.fr',
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Île-de-France',
+    addressCountry: 'FR',
+  },
+  areaServed: 'FR',
+  priceRange: '€€',
+  sameAs: [],
+  knowsAbout: [
+    'Création site web artisan',
+    'SEO local artisan',
+    'Site web plombier',
+    'Site web électricien',
+    'Site web menuisier',
+    'Site web couvreur',
+    'Next.js',
+    'Tailwind CSS',
+  ],
 };
 
 export default function RootLayout({
@@ -58,9 +89,14 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <meta name="theme-color" content="#2563EB" />
-        <meta name="google-site-verification" content="1TN-ya8tURkRhnlXkU8ZjSn57b503m3WUibQIoYW7V0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
       </head>
       <body className="antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
         {children}
       </body>
     </html>

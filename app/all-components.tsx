@@ -25,7 +25,7 @@ import { motion } from 'framer-motion';
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import {
-  Code2, Menu, X, ArrowRight, TrendingUp, Zap, Award,
+  Code2, Menu, X, ArrowRight, TrendingUp, Zap,
   Search, Rocket, Smartphone, BarChart3, Palette, Target,
   Clock, HeadphonesIcon, CheckCircle2, Check, Star,
   ExternalLink, Quote, Phone, Mail, Calendar, MapPin
@@ -355,8 +355,8 @@ export function DevHero() {
               </a>
             </motion.div>
 
-            <div className="grid grid-cols-3 gap-6">
-              {[{ icon: TrendingUp, value: "+200%", label: "Appels clients" }, { icon: Zap, value: "100/100", label: "Score SEO" }, { icon: Award, value: "1+", label: "Artisans satisfaits" }].map((stat, idx) => (
+            <div className="grid grid-cols-2 gap-6">
+              {[{ icon: TrendingUp, value: "+200%", label: "Appels clients" }, { icon: Zap, value: "100/100", label: "Score SEO" }].map((stat, idx) => (
                 <motion.div key={idx} whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 5 }} transition={{ duration: 0.5, delay: 0.5 + idx * 0.1 }} viewport={{ once: true }} className="text-center p-4 bg-white rounded-xl shadow-sm border border-gray-100">
                   <div className="flex items-center justify-center gap-1 mb-1">
                     <stat.icon className={`w-5 h-5 ${idx === 0 ? 'text-green-600' : idx === 1 ? 'text-yellow-600' : 'text-blue-600'}`} />
@@ -620,7 +620,7 @@ export function DevPricing() {
   const plans = [
     {
       name: "Site Vitrine Essentiel",
-      price: "499€",
+      price: "299€",
       description: "Parfait pour démarrer votre présence en ligne",
       popular: false,
       features: [
@@ -636,7 +636,7 @@ export function DevPricing() {
     },
     {
       name: "Site Premium Pro",
-      price: "990€",
+      price: "590€",
       description: "Le plus choisi par les artisans ambitieux",
       popular: true,
       features: [
@@ -656,7 +656,7 @@ export function DevPricing() {
     },
     {
       name: "Site Ultra Performance",
-      price: "2490€",
+      price: "1490€",
       description: "Pour dominer votre marché local",
       popular: false,
       features: [
@@ -780,11 +780,21 @@ export function DevPortfolio() {
     {
       title: "Maytec electricité",
       category: "Électricien",
-      results: "+250% d'appels en 2 mois",
+      results: "top 0 recherche google",
       image: "/frame1.png",
       tags: ["Next.js", "SEO Local", "TailwindCss"],
       url: "https://may-tec.net/electricien-agricole-normandie"
     },
+
+    {
+      title: "Dg elagage",
+      category: "Électricien & paysagiste",
+      results: "100/100 score pagespeed",
+      image: "/herodgelagage.png",
+      tags: ["Next.js", "SEO Local", "TailwindCss"],
+      url: "https://dgelagage95.fr"
+    },
+    
     
   ];
 
@@ -890,6 +900,15 @@ export function DevTestimonials() {
       text: "lancement clair et rapide, suivi régulier, webprestige a mis en ligne mon site complet en seulement 5 jours et continue a optimiser le seo",
       result: "1ère page Google"
     },
+
+    {
+      name: "Pinto Adi",
+      business: "Élagueur et paysagiste Val d'Oise",
+      rating: 5,
+      text: "Je recommande webprestige site internet de qualite",
+      result: "1ère page Google"
+    },
+  
   
   ];
 
@@ -1555,7 +1574,7 @@ export function DevFooter() {
                 </a>
               </li>
               <li>
-                <a href="#" className="text-gray-400 hover:text-white transition-colors">
+                <a href="#contact" className="text-gray-400 hover:text-white transition-colors">
                   Audit Gratuit
                 </a>
               </li>
@@ -1563,7 +1582,30 @@ export function DevFooter() {
           </div>
         </motion.div>
 
-        <motion.div 
+        <motion.div
+          className="border-t border-gray-800 pt-8 mb-8"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.15 }}
+          viewport={{ once: true }}
+        >
+          <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
+            Nos pages par métier &amp; ville
+          </h3>
+          <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+            <li><Link href="/site-electricien-cergy" className="text-gray-500 hover:text-white transition-colors">Site web Électricien Cergy</Link></li>
+            <li><Link href="/site-electricien-argenteuil" className="text-gray-500 hover:text-white transition-colors">Site web Électricien Argenteuil</Link></li>
+            <li><Link href="/site-electricien-lyon" className="text-gray-500 hover:text-white transition-colors">Site web Électricien Lyon</Link></li>
+            <li><Link href="/site-electricien-bordeaux" className="text-gray-500 hover:text-white transition-colors">Site web Électricien Bordeaux</Link></li>
+            <li><Link href="/site-plombier-cergy" className="text-gray-500 hover:text-white transition-colors">Site web Plombier Cergy</Link></li>
+            <li><Link href="/site-plombier-paris" className="text-gray-500 hover:text-white transition-colors">Site web Plombier Paris</Link></li>
+            <li><Link href="/site-plombier-toulouse" className="text-gray-500 hover:text-white transition-colors">Site web Plombier Toulouse</Link></li>
+            <li><Link href="/site-menuisier-cergy" className="text-gray-500 hover:text-white transition-colors">Site web Menuisier Cergy</Link></li>
+            <li><Link href="/site-couvreur-marseille" className="text-gray-500 hover:text-white transition-colors">Site web Couvreur Marseille</Link></li>
+          </ul>
+        </motion.div>
+
+        <motion.div
           className="border-t border-gray-800 pt-8"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -1572,7 +1614,7 @@ export function DevFooter() {
         >
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-gray-400 text-sm">
-              © {currentYear} WebArtisan Pro - Tous droits réservés.
+              © {currentYear} WebPrestige - Tous droits réservés.
             </p>
             <div className="flex gap-6 text-sm">
               <a href="#" className="text-gray-400 hover:text-white transition-colors">
@@ -1586,7 +1628,7 @@ export function DevFooter() {
               </a>
             </div>
           </div>
-          
+
         </motion.div>
       </div>
     </footer>

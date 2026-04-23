@@ -1,55 +1,18 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { getPageData } from '@/app/lib/seo-data';
+import { getPageData, getFaqData } from '@/app/lib/seo-data';
 import { DevHeader, DevFooter, ContactForm } from "@/app/all-components";
 import Link from 'next/link';
-import { CheckCircle2, ArrowRight, TrendingUp, Zap, Target, Users, Clock, Award, BarChart3 } from 'lucide-react';
-import { useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { CheckCircle2, ArrowRight, TrendingUp, Zap, Target, Users, Clock, Award, BarChart3, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
 
 export default function ServiceVillePage() {
   const params = useParams();
   const slug = params.slug as string;
 
   const pageData = getPageData(slug);
-
-  // Update document meta tags
-  useEffect(() => {
-    if (pageData) {
-      document.title = pageData.h1;
-
-      let metaDescription = document.querySelector('meta[name="description"]');
-      if (metaDescription) {
-        metaDescription.setAttribute('content', pageData.description);
-      } else {
-        metaDescription = document.createElement('meta');
-        metaDescription.setAttribute('name', 'description');
-        metaDescription.setAttribute('content', pageData.description);
-        document.head.appendChild(metaDescription);
-      }
-
-      let metaKeywords = document.querySelector('meta[name="keywords"]');
-      if (metaKeywords) {
-        metaKeywords.setAttribute('content', pageData.keywords);
-      } else {
-        metaKeywords = document.createElement('meta');
-        metaKeywords.setAttribute('name', 'keywords');
-        metaKeywords.setAttribute('content', pageData.keywords);
-        document.head.appendChild(metaKeywords);
-      }
-
-      let canonical = document.querySelector('link[rel="canonical"]');
-      if (canonical) {
-        canonical.setAttribute('href', `https://webprestige.fr/${slug}`);
-      } else {
-        canonical = document.createElement('link');
-        canonical.setAttribute('rel', 'canonical');
-        canonical.setAttribute('href', `https://webprestige.fr/${slug}`);
-        document.head.appendChild(canonical);
-      }
-    }
-  }, [pageData, slug]);
 
   if (!pageData) {
     return (
@@ -69,6 +32,74 @@ export default function ServiceVillePage() {
     );
   }
 
+  const pageUrl = `https://webprestige.fr/${slug}`;
+
+  const jsonLdService = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: pageData.h1,
+    description: pageData.description,
+    provider: {
+      '@type': 'ProfessionalService',
+      name: 'WebPrestige',
+      url: 'https://webprestige.fr',
+      telephone: '+33783585792',
+      email: 'contact@webprestige.fr',
+      areaServed: pageData.ville,
+      address: {
+        '@type': 'PostalAddress',
+        addressRegion: 'Île-de-France',
+        addressCountry: 'FR',
+      },
+    },
+    serviceType: `Création site web ${pageData.service}`,
+    areaServed: {
+      '@type': 'City',
+      name: pageData.ville,
+    },
+    offers: {
+      '@type': 'Offer',
+      price: '590',
+      priceCurrency: 'EUR',
+      description: `Site web professionnel pour ${pageData.service} à ${pageData.ville}`,
+    },
+    url: pageUrl,
+  };
+
+  const jsonLdBreadcrumb = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Accueil',
+        item: 'https://webprestige.fr',
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: `Site web ${pageData.service} ${pageData.ville}`,
+        item: pageUrl,
+      },
+    ],
+  };
+
+  const faqs = getFaqData(pageData.service, pageData.ville);
+
+  const jsonLdFaq = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
+  };
+
   const benefits = [
     { icon: TrendingUp, text: "+300% d'appels clients en 3 mois" },
     { icon: Zap, text: "1ère page Google = client régulier" },
@@ -78,10 +109,41 @@ export default function ServiceVillePage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
+      />
       <DevHeader />
+      <nav aria-label="Fil d'Ariane" className="bg-gray-50 border-b border-gray-200 py-3">
+        <div className="container mx-auto px-4">
+          <ol className="flex items-center gap-2 text-sm text-gray-600" itemScope itemType="https://schema.org/BreadcrumbList">
+            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+              <Link href="/" className="hover:text-blue-600 transition-colors" itemProp="item">
+                <span itemProp="name">Accueil</span>
+              </Link>
+              <meta itemProp="position" content="1" />
+            </li>
+            <li className="text-gray-400">/</li>
+            <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+              <span className="text-gray-900 font-medium" itemProp="name">
+                Site web {pageData.service} {pageData.ville}
+              </span>
+              <meta itemProp="position" content="2" />
+            </li>
+          </ol>
+        </div>
+      </nav>
       <main>
         {/* HERO AGRESSIF */}
-        <section className="pt-32 pb-20 bg-gradient-to-br from-red-50 via-orange-50 to-yellow-50">
+        <section className="pt-32 pb-20 bg-linear-to-br from-red-50 via-orange-50 to-yellow-50">
           <div className="container mx-auto px-4">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-4xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-full text-sm font-bold mb-6">
@@ -102,7 +164,7 @@ export default function ServiceVillePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <button className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-4 rounded-lg font-bold shadow-lg transition-all inline-flex items-center gap-2">
+                <button className="bg-linear-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-4 rounded-lg font-bold shadow-lg transition-all inline-flex items-center gap-2">
                   Audit Gratuit Immédiat
                   <ArrowRight className="w-5 h-5" />
                 </button>
@@ -118,6 +180,47 @@ export default function ServiceVillePage() {
                     <p className="text-sm font-semibold text-gray-900">{benefit.text}</p>
                   </motion.div>
                 ))}
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* DESCRIPTION LONGUE + CONTEXTE LOCAL */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-4">
+            <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-gray-900 mb-8">
+                Site web {pageData.service} à {pageData.ville} : ce que vous devez savoir
+              </h2>
+              <div className="space-y-4 mb-12">
+                {pageData.longDescription.split('\n\n').map((para, i) => (
+                  <p key={i} className="text-lg text-gray-700 leading-relaxed">{para}</p>
+                ))}
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8 mb-10">
+                <div className="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-600">
+                  <h3 className="font-bold text-gray-900 text-lg mb-3">
+                    Vos clients {pageData.service} à {pageData.ville}
+                  </h3>
+                  <p className="text-gray-700 leading-relaxed">{pageData.clientTypes}</p>
+                </div>
+                <div className="bg-green-50 p-6 rounded-xl border-l-4 border-green-600">
+                  <h3 className="font-bold text-gray-900 text-lg mb-3">
+                    Votre opportunité SEO locale
+                  </h3>
+                  <p className="text-gray-700 leading-relaxed">{pageData.localSeoContext}</p>
+                </div>
+              </div>
+
+              <div className="bg-blue-900 text-white rounded-xl p-8">
+                <p className="text-sm font-bold text-blue-200 uppercase tracking-wide mb-4">
+                  Le marché {pageData.service} à {pageData.ville}
+                </p>
+                <p className="text-white/90 leading-relaxed mb-4">{pageData.marketContext}</p>
+                <p className="text-white/80 leading-relaxed">
+                  <strong className="text-white">Votre défi :</strong> {pageData.localChallenge}
+                </p>
               </div>
             </motion.div>
           </div>
@@ -170,7 +273,7 @@ export default function ServiceVillePage() {
               <div className="space-y-6 mb-12">
                 <div className="bg-white p-6 rounded-lg border-l-4 border-blue-600">
                   <div className="flex gap-4">
-                    <Users className="w-8 h-8 text-blue-600 flex-shrink-0" />
+                    <Users className="w-8 h-8 text-blue-600 shrink-0" />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-2">Vos Clients Cherchent en Ligne</h4>
                       <p className="text-gray-700">90% des demandes commencent par une recherche Google. Si vous n'êtes pas là, c'est vos concurrents qui reçoivent ces appels.</p>
@@ -180,7 +283,7 @@ export default function ServiceVillePage() {
 
                 <div className="bg-white p-6 rounded-lg border-l-4 border-green-600">
                   <div className="flex gap-4">
-                    <Target className="w-8 h-8 text-green-600 flex-shrink-0" />
+                    <Target className="w-8 h-8 text-green-600 shrink-0" />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-2">Ciblage Local Hyper Précis</h4>
                       <p className="text-gray-700">Un bon site SEO vous place sur les recherches "{pageData.service} {pageData.ville}" et génère uniquement des appels locaux qualifiés.</p>
@@ -190,7 +293,7 @@ export default function ServiceVillePage() {
 
                 <div className="bg-white p-6 rounded-lg border-l-4 border-purple-600">
                   <div className="flex gap-4">
-                    <Award className="w-8 h-8 text-purple-600 flex-shrink-0" />
+                    <Award className="w-8 h-8 text-purple-600 shrink-0" />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-2">Légitimité & Confiance</h4>
                       <p className="text-gray-700">Un site web professionnel = entreprise sérieuse. Sans site, les clients pensent que vous êtes "petit" ou "vraiment local".</p>
@@ -200,7 +303,7 @@ export default function ServiceVillePage() {
 
                 <div className="bg-white p-6 rounded-lg border-l-4 border-pink-600">
                   <div className="flex gap-4">
-                    <BarChart3 className="w-8 h-8 text-pink-600 flex-shrink-0" />
+                    <BarChart3 className="w-8 h-8 text-pink-600 shrink-0" />
                     <div>
                       <h4 className="font-bold text-gray-900 mb-2">Retour sur Investissement Garanti</h4>
                       <p className="text-gray-700">Avec 15-20 appels supplémentaires par mois = 3-5 chantiers = 500€ à 2000€ supplémentaires par mois. Votre site se rentabilise en 1-2 mois.</p>
@@ -209,7 +312,7 @@ export default function ServiceVillePage() {
                 </div>
               </div>
 
-              <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-8 rounded-xl">
+              <div className="bg-linear-to-r from-blue-600 to-purple-600 text-white p-8 rounded-xl">
                 <p className="text-lg font-semibold">
                   En 3 mois, un site bien optimisé transforme un {pageData.service} local en chef de file de sa région.
                 </p>
@@ -242,7 +345,7 @@ export default function ServiceVillePage() {
                   "Score Google PageSpeed 100/100 garanti"
                 ].map((item, idx) => (
                   <motion.div key={idx} initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} transition={{ delay: idx * 0.05 }} className="flex items-start gap-3">
-                    <CheckCircle2 className="w-6 h-6 text-green-600 flex-shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-6 h-6 text-green-600 shrink-0 mt-0.5" />
                     <span className="text-gray-700 font-medium">{item.replace('{pageData.service}', pageData.service).replace('{pageData.ville}', pageData.ville)}</span>
                   </motion.div>
                 ))}
@@ -252,7 +355,7 @@ export default function ServiceVillePage() {
         </section>
 
         {/* TÉMOIGNAGE */}
-        <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+        <section className="py-20 bg-linear-to-br from-blue-50 to-purple-50">
           <div className="container mx-auto px-4">
             <motion.div initial={{ opacity: 0, scale: 0.95 }} whileInView={{ opacity: 1, scale: 1 }} className="max-w-2xl mx-auto bg-white p-8 rounded-xl border border-gray-200 shadow-lg">
               <div className="flex gap-1 mb-4">
@@ -278,14 +381,14 @@ export default function ServiceVillePage() {
                 Le Tarif d'un Site Web Professionnel
               </h3>
 
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 border-4 border-blue-600 p-12 rounded-xl mb-8">
-                <div className="text-6xl font-bold text-gray-900 mb-4">990€</div>
+              <div className="bg-linear-to-br from-blue-50 to-purple-50 border-4 border-blue-600 p-12 rounded-xl mb-8">
+                <div className="text-6xl font-bold text-gray-900 mb-4">590€</div>
                 <p className="text-xl text-gray-700 mb-4">Site Premium Complet</p>
                 <p className="text-gray-600 mb-6">Investissement unique. Paiement en 3x sans frais disponible.</p>
                 <p className="text-sm text-gray-600 mb-8">
-                  ROI garanti : 15 appels/mois en moyenne × 500€ de marge = <strong>7 500€/mois</strong> de bénéfices supplémentaires
+                  Rentabilisé dès le 2ème chantier décroché — un seul appel qualifié couvre déjà la moitié de l'investissement.
                 </p>
-                <button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg inline-flex items-center gap-2">
+                <button className="bg-linear-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-lg font-bold hover:from-blue-700 hover:to-purple-700 transition-all shadow-lg inline-flex items-center gap-2">
                   Obtenir un Devis Personnalisé
                   <ArrowRight className="w-5 h-5" />
                 </button>
@@ -300,14 +403,17 @@ export default function ServiceVillePage() {
                 <p className="text-gray-700 mb-4">
                   Les 3 premiers {pageData.service}s de {pageData.ville} à me contacter ce mois bénéficient de cette offre.
                 </p>
-                <p className="text-sm text-gray-600">Vous économisez {Math.round(990 * 0.2)}€ + 2 mois de support = {Math.round(990 * 2 / 12)}€ supplémentaires</p>
+                <p className="text-sm text-gray-600">Vous économisez {Math.round(590 * 0.2)}€ + 2 mois de support offerts</p>
               </div>
             </motion.div>
           </div>
         </section>
 
+        {/* FAQ */}
+        <FaqSection faqs={faqs} service={pageData.service} ville={pageData.ville} />
+
         {/* CALL-TO-ACTION FINAL */}
-        <section className="py-20 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 text-white">
+        <section className="py-20 bg-linear-to-r from-red-600 via-orange-600 to-yellow-600 text-white">
           <div className="container mx-auto px-4 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="max-w-3xl mx-auto">
               <h3 className="text-4xl font-bold mb-6">
@@ -340,5 +446,85 @@ export default function ServiceVillePage() {
       </main>
       <DevFooter />
     </div>
+  );
+}
+
+// ==========================================
+// FAQ ACCORDÉON COMPONENT
+// ==========================================
+
+function FaqSection({
+  faqs,
+  service,
+  ville,
+}: {
+  faqs: { question: string; answer: string }[];
+  service: string;
+  ville: string;
+}) {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  return (
+    <section className="py-20 bg-gray-50">
+      <div className="container mx-auto px-4">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto"
+        >
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-bold mb-4">
+              Questions fréquentes
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900">
+              Vos Questions sur la Création de Site Web {service} à {ville}
+            </h2>
+          </div>
+
+          <div className="space-y-3">
+            {faqs.map((faq, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.07 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm"
+              >
+                <button
+                  onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                  className="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition-colors"
+                  aria-expanded={openIndex === idx}
+                >
+                  <span className="font-semibold text-gray-900 pr-4">{faq.question}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-blue-600 shrink-0 transition-transform duration-300 ${
+                      openIndex === idx ? 'rotate-180' : ''
+                    }`}
+                  />
+                </button>
+                <AnimatePresence initial={false}>
+                  {openIndex === idx && (
+                    <motion.div
+                      key="answer"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    >
+                      <div className="px-6 pb-6 text-gray-700 leading-relaxed border-t border-gray-100 pt-4">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
   );
 }
