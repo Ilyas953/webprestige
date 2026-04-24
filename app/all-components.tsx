@@ -788,11 +788,20 @@ export function DevPortfolio() {
 
     {
       title: "Dg elagage",
-      category: "Électricien & paysagiste",
-      results: "100/100 score pagespeed",
+      category: "Élagueur & paysagiste",
+      results: "1ere page google",
       image: "/herodgelagage.png",
       tags: ["Next.js", "SEO Local", "TailwindCss"],
       url: "https://dgelagage95.fr"
+    },
+    
+    {
+      title: "Elagage Pierre",
+      category: "Élagueur",
+      results: "100/100 score pagespeed",
+      image: "/elagagepierrehero.png",
+      tags: ["Next.js", "SEO Local", "TailwindCss"],
+      url: "https://elagagepierre.fr"
     },
     
     
@@ -830,7 +839,7 @@ export function DevPortfolio() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="overflow-hidden border-2 border-gray-200 hover:border-blue-500 transition-all hover:shadow-xl group">
+              <Card className="overflow-hidden border-2 border-gray-200 hover:border-blue-500 transition-all hover:shadow-xl group h-full">
                 <div className="aspect-video relative overflow-hidden bg-gray-100">
                   <ImageWithFallback
                     src={project.image}
@@ -898,7 +907,7 @@ export function DevTestimonials() {
       business: "Électricité agricole normandie",
       rating: 5,
       text: "lancement clair et rapide, suivi régulier, webprestige a mis en ligne mon site complet en seulement 5 jours et continue a optimiser le seo",
-      result: "1ère page Google"
+      result: "top 0 google"
     },
 
     {
@@ -908,6 +917,15 @@ export function DevTestimonials() {
       text: "Je recommande webprestige site internet de qualite",
       result: "1ère page Google"
     },
+
+    {
+      name: "Pierre Rudy",
+      business: "Élagueur Ile de France",
+      rating: 5,
+      text: "Très satisfait du travail réalisé pour la création de mon site internet.Bonne communication du début à la fin. Je recommande sans hésitation !",
+      result: "100/100 score SEO"
+    },
+  
   
   
   ];
@@ -944,7 +962,7 @@ export function DevTestimonials() {
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="border-2 border-gray-200 relative">
+              <Card className="border-2 border-gray-200 relative h-full">
                 <CardContent className="pt-8">
                   <Quote className="w-12 h-12 text-blue-200 mb-4" />
                   
