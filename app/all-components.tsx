@@ -8,6 +8,7 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
+import { getAllPages } from "@/app/lib/seo-data";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -1611,15 +1612,13 @@ export function DevFooter() {
             Nos pages par métier &amp; ville
           </h3>
           <ul className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            <li><Link href="/site-electricien-cergy" className="text-gray-500 hover:text-white transition-colors">Site web Électricien Cergy</Link></li>
-            <li><Link href="/site-electricien-argenteuil" className="text-gray-500 hover:text-white transition-colors">Site web Électricien Argenteuil</Link></li>
-            <li><Link href="/site-electricien-lyon" className="text-gray-500 hover:text-white transition-colors">Site web Électricien Lyon</Link></li>
-            <li><Link href="/site-electricien-bordeaux" className="text-gray-500 hover:text-white transition-colors">Site web Électricien Bordeaux</Link></li>
-            <li><Link href="/site-plombier-cergy" className="text-gray-500 hover:text-white transition-colors">Site web Plombier Cergy</Link></li>
-            <li><Link href="/site-plombier-paris" className="text-gray-500 hover:text-white transition-colors">Site web Plombier Paris</Link></li>
-            <li><Link href="/site-plombier-toulouse" className="text-gray-500 hover:text-white transition-colors">Site web Plombier Toulouse</Link></li>
-            <li><Link href="/site-menuisier-cergy" className="text-gray-500 hover:text-white transition-colors">Site web Menuisier Cergy</Link></li>
-            <li><Link href="/site-couvreur-marseille" className="text-gray-500 hover:text-white transition-colors">Site web Couvreur Marseille</Link></li>
+            {getAllPages().map((page) => (
+              <li key={page.slug}>
+                <Link href={`/${page.slug}`} className="text-gray-500 hover:text-white transition-colors">
+                  Site web {page.service.charAt(0).toUpperCase() + page.service.slice(1)} {page.ville}
+                </Link>
+              </li>
+            ))}
           </ul>
         </motion.div>
 
