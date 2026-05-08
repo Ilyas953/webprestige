@@ -164,13 +164,13 @@ export default function ServiceVillePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <button className="bg-linear-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-4 rounded-lg font-bold shadow-lg transition-all inline-flex items-center gap-2">
+                <a href="/#contact" className="bg-linear-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-4 rounded-lg font-bold shadow-lg transition-all inline-flex items-center gap-2">
                   Audit Gratuit Immédiat
                   <ArrowRight className="w-5 h-5" />
-                </button>
-                <button className="border-2 border-red-600 text-red-600 hover:bg-red-50 px-8 py-4 rounded-lg font-bold transition-all">
+                </a>
+                <a href="/#realisations" className="border-2 border-red-600 text-red-600 hover:bg-red-50 px-8 py-4 rounded-lg font-bold transition-all inline-flex items-center justify-center">
                   Voir mes projets
-                </button>
+                </a>
               </div>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -363,11 +363,15 @@ export default function ServiceVillePage() {
                   <span key={i} className="text-2xl">⭐</span>
                 ))}
               </div>
+              <div className="mb-4">
+                <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-semibold">1ère page Google</span>
+              </div>
               <p className="text-xl text-gray-800 italic font-semibold mb-6">
-                "{pageData.testimonial}"
+                "Lancement clair et rapide, suivi régulier. WebPrestige a mis en ligne mon site complet en seulement 5 jours et continue à optimiser le SEO."
               </p>
               <div className="border-t pt-4">
-                <p className="text-gray-700">Un vrai client {pageData.service} qui a lancé son site il y a 3 mois</p>
+                <p className="font-bold text-gray-900">Abdou Daim</p>
+                <p className="text-sm text-gray-600">Électricité agricole Normandie</p>
               </div>
             </motion.div>
           </div>

@@ -485,7 +485,7 @@ export function getFaqData(service: string, ville: string) {
     },
     {
       question: `Puis-je modifier mon site ${service} moi-même ?`,
-      answer: `Oui, vous recevez un accès complet pour modifier vos textes, photos et informations de contact. Une formation de 30 minutes est incluse à la livraison. Pour les modifications techniques plus importantes (design, nouvelles pages), le support est disponible par téléphone et email.`,
+      answer: `Non, la modification en autonomie n'est pas incluse dans les formules Essentiel (299€) et Premium (590€). Pour toute modification de texte, photo ou information de contact, vous me contactez et j'effectue la modification sous 24-48h. Seule la formule Ultra Performance (1 490€) inclut un accès complet pour modifier votre site en autonomie, avec une formation dédiée.`,
     },
     {
       question: `Y a-t-il des frais récurrents après la création du site ?`,

@@ -249,25 +249,25 @@ export function DevHeader() {
           </div>
           
           <div className="hidden lg:flex items-center gap-8">
-            <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a href="/#services" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
               Services
             </a>
-            <a href="#pourquoi" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a href="/#pourquoi" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
               Pourquoi nous
             </a>
-            <a href="#offres" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a href="/#offres" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
               Offres
             </a>
-            <a href="#realisations" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a href="/#realisations" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
               Réalisations
             </a>
-            <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+            <a href="/#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
               Contact
             </a>
           </div>
 
           <div className="flex items-center gap-4">
-              <a href="#contact">
+              <a href="/#contact">
             <Button className="hidden sm:flex bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white">
               Audit Gratuit
             </Button>
@@ -286,22 +286,22 @@ export function DevHeader() {
         {mobileMenuOpen && (
           <div className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4">
             <div className="flex flex-col gap-4">
-              <a href="#services" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              <a href="/#services" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 Services
               </a>
-              <a href="#pourquoi" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              <a href="/#pourquoi" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 Pourquoi nous
               </a>
-              <a href="#offres" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              <a href="/#offres" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 Offres
               </a>
-              <a href="#realisations" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              <a href="/#realisations" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 Réalisations
               </a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+              <a href="/#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
                 Contact
               </a>
-              <a href="#contact">
+              <a href="/#contact">
               <Button className="bg-gradient-to-r from-blue-600 to-purple-600 text-white w-full">
                 Audit Gratuit
               </Button>
