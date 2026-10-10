@@ -9,7 +9,7 @@ import { Logo } from '@/app/components/ui';
 
 const NAV = [
   { href: '/creation-site-internet-artisan', label: 'Sites pour artisans' },
-  { href: '/creation-site-internet-val-d-oise', label: "Val-d'Oise" },
+  { href: '/#zones', label: 'Zones' },
   { href: '/referencement-local', label: 'Référencement local' },
   { href: '/maintenance-site-internet', label: 'Maintenance' },
   { href: '/guides', label: 'Guides' },

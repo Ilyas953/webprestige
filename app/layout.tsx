@@ -11,7 +11,7 @@ const fraunces = Fraunces({ subsets: ['latin'], variable: '--font-fraunces', dis
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: 'Création de Site Internet Professionnel et Site Vitrine | WebPrestige',
+    default: "Agence Web Val-d'Oise (95) : Création de Site Internet | WebPrestige",
     template: '%s | WebPrestige',
   },
   description:

@@ -13,7 +13,9 @@ import {
   ShieldCheck,
   Smartphone,
   Store,
+  UserRound,
   Wrench,
+  Zap,
 } from 'lucide-react';
 import { GUIDES, ORG_ID, SITE, pageMetadata } from '@/app/lib/site';
 import { VILLES } from '@/app/lib/villes';
@@ -34,9 +36,9 @@ import { AnalysisCard } from '@/app/components/analysis-card';
 import { Realisations, Temoignages } from '@/app/components/realisations';
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Création de Site Internet Professionnel et Site Vitrine | WebPrestige',
+  title: "Agence Web Val-d'Oise (95) : Création de Site Internet | WebPrestige",
   description:
-    'Création de site internet professionnel et de site vitrine pour artisans, commerçants et TPE. Commencez par une analyse gratuite de votre présence en ligne : Google, fiche, avis, site.',
+    "Agence web dans le Val-d'Oise : création de sites internet professionnels et de sites vitrines pour artisans, commerçants et TPE du 95. Commencez par une analyse gratuite de votre présence en ligne.",
   path: '/',
   absoluteTitle: true,
 });
@@ -84,11 +86,37 @@ const INCLUS = [
   },
 ];
 
+const SECTEURS = [
+  {
+    titre: 'L’agglomération de Cergy-Pontoise',
+    texte:
+      'Cergy, Pontoise, Saint-Ouen-l’Aumône, Éragny, Osny, Vauréal… Un territoire dense, où les entreprises sont nombreuses et où les résultats de recherche mélangent les communes. Il faut être précis pour sortir du lot.',
+  },
+  {
+    titre: 'Le sud et l’est du département',
+    texte:
+      'Argenteuil, la vallée de Montmorency, Herblay-sur-Seine : des villes très peuplées, proches de Paris, où la concurrence en ligne est forte et où les clients comparent beaucoup.',
+  },
+  {
+    titre: 'Le nord et l’ouest rural',
+    texte:
+      'Pays de France, Vexin français, vallée de l’Oise : de petites communes, des clients répartis sur un large secteur et une concurrence en ligne souvent plus faible. Une présence bien construite y fait vite la différence.',
+  },
+];
+
 const HOME_FAQ: FaqItem[] = [
   {
     q: 'Pourquoi commencer par une analyse gratuite plutôt que par un devis ?',
     a: 'Parce qu’un devis sans analyse compare des prix, pas des résultats. En regardant d’abord ce que vos clients voient quand ils vous cherchent (Google, fiche, avis, site actuel), on sait ce qu’il faut vraiment faire. Parfois la priorité n’est même pas un nouveau site.',
     link: { href: '/analyse-gratuite', label: 'Comment se passe l’analyse' },
+  },
+  {
+    q: 'Quelle différence avec une grande agence web ?',
+    a: 'Une grande agence répartit votre projet entre plusieurs personnes : commercial, chef de projet, graphiste, développeur. Chez WebPrestige, vous avez un seul interlocuteur, du premier échange à la mise en ligne, et après. C’est plus simple et plus réactif pour un site vitrine.',
+  },
+  {
+    q: 'Travaillez-vous uniquement avec des entreprises du Val-d’Oise ?',
+    a: 'Non. Je travaille beaucoup avec des entreprises du 95 et des départements voisins, mais aussi à distance avec des entreprises de toute la France. Tout se fait facilement par téléphone et en visio.',
   },
   {
     q: 'Combien coûte un site internet professionnel ?',
@@ -107,10 +135,6 @@ const HOME_FAQ: FaqItem[] = [
     q: 'Pouvez-vous refaire un site existant ?',
     a: 'Oui. L’analyse gratuite permet de voir si votre site actuel peut être amélioré ou s’il vaut mieux le refaire, en conservant ce qui fonctionne déjà, notamment les pages qui apparaissent sur Google.',
   },
-  {
-    q: 'Où intervenez-vous ?',
-    a: 'Principalement dans le Val-d’Oise et l’ouest de l’Île-de-France, et à distance partout en France : tout peut se faire par téléphone et en visio.',
-  },
 ];
 
 export default function HomePage() {
@@ -120,10 +144,13 @@ export default function HomePage() {
         data={{
           '@context': 'https://schema.org',
           '@type': 'Service',
-          name: 'Création de site internet professionnel',
+          name: "Création de site internet dans le Val-d'Oise",
           serviceType: 'Création de site internet',
           provider: { '@id': ORG_ID },
-          areaServed: { '@type': 'Country', name: 'France' },
+          areaServed: [
+            { '@type': 'AdministrativeArea', name: "Val-d'Oise" },
+            { '@type': 'Country', name: 'France' },
+          ],
           url: SITE.url,
         }}
       />
@@ -132,15 +159,18 @@ export default function HomePage() {
       <section className="overflow-hidden border-b border-line bg-paper">
         <Container className="grid gap-14 py-16 sm:py-20 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:py-24">
           <div>
-            <Eyebrow>Développeur web · Val-d’Oise et toute la France</Eyebrow>
+            <Eyebrow>Développeur web · Val-d’Oise (95) et toute la France</Eyebrow>
             <h1 className="font-display text-4xl font-semibold leading-[1.05] tracking-tight text-ink sm:text-5xl lg:text-[3.6rem]">
-              Création de site internet professionnel,{' '}
-              <span className="text-copper">pensé pour être trouvé</span>
+              Agence web <span className="whitespace-nowrap">Val-d’Oise</span>{' '}
+              <span className="mt-3 block text-[0.6em] leading-tight text-copper">
+                création de site internet professionnel
+              </span>
             </h1>
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-              WebPrestige conçoit des sites vitrines rapides, clairs et bien référencés pour les artisans, commerçants
-              et TPE. Avant de parler de site, je commence par une analyse gratuite de votre présence en ligne : ce que
-              vos clients voient vraiment quand ils vous cherchent.
+              WebPrestige est une agence web du Val-d’Oise à taille humaine : je conçois des sites vitrines rapides,
+              clairs et bien référencés pour les artisans, commerçants et TPE du 95 et d’ailleurs. Avant de parler de
+              site, je commence par une analyse gratuite de votre présence en ligne : ce que vos clients voient vraiment
+              quand ils vous cherchent.
             </p>
             <HeroActions />
           </div>
@@ -158,8 +188,31 @@ export default function HomePage() {
         <AnalyseSteps />
       </Section>
 
-      {/* À QUOI SERT UN SITE */}
+      {/* AGENCE À TAILLE HUMAINE */}
       <Section>
+        <SectionHeading
+          eyebrow="Agence web Val-d’Oise"
+          title="Une agence web du Val-d’Oise à taille humaine"
+          intro="Vous cherchez une agence web dans le Val-d’Oise ? WebPrestige fonctionne autrement qu’une grande agence : la personne qui analyse votre présence en ligne est celle qui conçoit, développe et suit votre site."
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          <InfoCard title="Un seul interlocuteur" icon={<UserRound className="h-5 w-5" aria-hidden="true" />}>
+            Du premier échange au suivi après la mise en ligne, vous parlez toujours à la même personne. Rien ne se perd
+            entre deux services.
+          </InfoCard>
+          <InfoCard title="La connaissance du 95" icon={<MapPin className="h-5 w-5" aria-hidden="true" />}>
+            Les recherches ne se font pas de la même façon à Cergy, à Pontoise ou à Viarmes. Savoir comment vos clients
+            cherchent dans votre secteur change la construction du site.
+          </InfoCard>
+          <InfoCard title="De la réactivité" icon={<Zap className="h-5 w-5" aria-hidden="true" />}>
+            Une question, une modification, un souci : vous appelez directement la personne qui connaît votre site, sans
+            ticket ni file d’attente.
+          </InfoCard>
+        </div>
+      </Section>
+
+      {/* À QUOI SERT UN SITE */}
+      <Section tone="white">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <div>
             <SectionHeading
@@ -195,7 +248,7 @@ export default function HomePage() {
                 d: 'Un numéro cliquable, un formulaire simple, une réponse rapide : le moins de friction possible entre l’intérêt et l’appel.',
               },
             ].map((item) => (
-              <div key={item.n} className="flex gap-5 rounded-2xl border border-line bg-white p-6">
+              <div key={item.n} className="flex gap-5 rounded-2xl border border-line bg-paper p-6">
                 <span className="font-display text-2xl font-semibold text-copper">{item.n}</span>
                 <div>
                   <h3 className="text-lg font-semibold text-ink">{item.t}</h3>
@@ -208,7 +261,7 @@ export default function HomePage() {
       </Section>
 
       {/* CE QUI EST INCLUS */}
-      <Section tone="white">
+      <Section>
         <SectionHeading
           eyebrow="Ce que comprend un site WebPrestige"
           title="Un site internet professionnel, prêt à travailler pour vous"
@@ -228,7 +281,7 @@ export default function HomePage() {
       </Section>
 
       {/* POUR QUI */}
-      <Section>
+      <Section tone="white">
         <SectionHeading eyebrow="Pour qui" title="Des sites pour les entreprises qui vivent de leurs clients locaux" />
         <div className="grid gap-6 md:grid-cols-3">
           <InfoCard title="Artisans du bâtiment" icon={<Hammer className="h-5 w-5" aria-hidden="true" />}>
@@ -308,39 +361,48 @@ export default function HomePage() {
       </Section>
 
       {/* ZONES */}
-      <Section tone="white">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr]">
-          <SectionHeading
-            eyebrow="Zones"
-            title="Création de site internet dans le Val-d’Oise et alentours"
-            intro="Basé dans le Val-d’Oise, je connais la façon dont les clients cherchent ici, de l’agglomération de Cergy-Pontoise au Pays de France. Et je travaille à distance avec des entreprises de toute la France."
-          />
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {VILLES.map((v) => (
-              <li key={v.slug}>
-                <Link
-                  href={`/${v.slug}`}
-                  className="group flex h-full items-start gap-3 rounded-2xl border border-line bg-paper p-5 hover:border-copper/40"
-                >
-                  <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-copper" aria-hidden="true" />
-                  <span>
-                    <span className="font-semibold text-ink group-hover:text-copper">Site internet à {v.nom}</span>
-                    <span className="mt-1 block text-sm leading-relaxed text-muted">{v.resume}</span>
-                  </span>
-                </Link>
-              </li>
-            ))}
-            <li className="sm:col-span-2">
+      <Section id="zones" tone="white">
+        <SectionHeading
+          eyebrow="Création de site web dans le 95"
+          title="Le Val-d’Oise, un département aux recherches très locales"
+          intro="Entre grandes agglomérations et villages, le Val-d’Oise réunit des situations très différentes. Un site efficace tient compte du secteur où vous travaillez."
+        />
+        <div className="grid gap-6 md:grid-cols-3">
+          {SECTEURS.map((s) => (
+            <InfoCard key={s.titre} title={s.titre}>
+              {s.texte}
+            </InfoCard>
+          ))}
+        </div>
+
+        <h3 className="mt-16 font-display text-2xl font-semibold text-ink">
+          Création de site internet dans les villes du secteur
+        </h3>
+        <p className="mt-3 max-w-3xl leading-relaxed text-muted">
+          Chaque page détaille le contexte local, les recherches des habitants et ce qui fait la différence pour un site
+          dans cette ville.
+        </p>
+        <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {VILLES.map((v) => (
+            <li key={v.slug}>
               <Link
-                href="/creation-site-internet-val-d-oise"
-                className="flex items-center justify-between rounded-2xl bg-navy p-5 font-semibold text-white hover:bg-navy-soft"
+                href={`/${v.slug}`}
+                className="group flex h-full items-start gap-3 rounded-2xl border border-line bg-paper p-5 hover:border-copper/40"
               >
-                Création de site internet dans tout le Val-d’Oise (95)
-                <ArrowRight className="h-5 w-5" aria-hidden="true" />
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-copper" aria-hidden="true" />
+                <span>
+                  <span className="font-semibold text-ink group-hover:text-copper">Site internet à {v.nom}</span>
+                  <span className="mt-1 block text-sm leading-relaxed text-muted">{v.resume}</span>
+                </span>
               </Link>
             </li>
-          </ul>
-        </div>
+          ))}
+        </ul>
+        <p className="mt-8 max-w-3xl leading-relaxed text-muted">
+          Je travaille aussi avec des entreprises d’Osny, Vauréal, Jouy-le-Moutier, Pierrelaye, Herblay-sur-Seine,
+          Argenteuil, Taverny, Luzarches et de tout le Val-d’Oise, ainsi qu’à distance partout en France. Votre commune
+          n’apparaît pas ? L’analyse gratuite fonctionne partout.
+        </p>
       </Section>
 
       {/* GUIDES */}
@@ -373,12 +435,12 @@ export default function HomePage() {
       {/* FAQ */}
       <Section tone="white">
         <div className="mx-auto max-w-3xl">
-          <SectionHeading eyebrow="Questions fréquentes" title="Création de site internet : vos questions" />
+          <SectionHeading eyebrow="Questions fréquentes" title="Agence web et création de site internet : vos questions" />
           <Faq items={HOME_FAQ} />
         </div>
       </Section>
 
-      <CtaBand />
+      <CtaBand title="Entreprise du Val-d’Oise : où en est votre présence en ligne ?" />
     </>
   );
 }

@@ -23,7 +23,7 @@ function FooterColumn({ title, links }: { title: string; links: { href: string; 
 
 export function SiteFooter() {
   const zones = [
-    { href: '/creation-site-internet-val-d-oise', label: "Val-d'Oise (95)" },
+    { href: '/', label: "Agence web Val-d'Oise" },
     ...VILLES.map((v) => ({ href: `/${v.slug}`, label: v.nom })),
   ];
   const guides = [...GUIDES.map((g) => ({ href: g.href, label: g.short })), { href: '/guides', label: 'Tous les guides' }];

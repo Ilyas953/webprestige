@@ -57,7 +57,6 @@ export default async function VillePage({ params }: Props) {
       <PageHero
         crumbs={[
           { name: 'Accueil', href: '/' },
-          { name: "Val-d'Oise", href: '/creation-site-internet-val-d-oise' },
           { name: ville.nom, href: `/${slug}` },
         ]}
         eyebrow={`Création de site internet · ${ville.departement}`}
@@ -172,7 +171,7 @@ export default async function VillePage({ params }: Props) {
               ))}
               <li>
                 <Link
-                  href="/creation-site-internet-val-d-oise"
+                  href="/#zones"
                   className="group flex items-center justify-between gap-4 py-3 font-semibold text-ink hover:text-copper"
                 >
                   Tout le Val-d’Oise

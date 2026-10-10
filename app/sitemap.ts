@@ -6,7 +6,6 @@ const PAGES = [
   '/',
   '/analyse-gratuite',
   '/creation-site-internet-artisan',
-  '/creation-site-internet-val-d-oise',
   '/referencement-local',
   '/maintenance-site-internet',
   '/optimisation-vitesse-site-internet',
