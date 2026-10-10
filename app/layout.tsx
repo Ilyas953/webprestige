@@ -1,38 +1,24 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { Fraunces, Inter } from 'next/font/google';
 import './globals.css';
+import { ORG_ID, SITE } from '@/app/lib/site';
+import { SiteHeader } from '@/app/components/site-header';
+import { SiteFooter } from '@/app/components/site-footer';
+
+const inter = Inter({ subsets: ['latin'], variable: '--font-inter', display: 'swap' });
+const fraunces = Fraunces({ subsets: ['latin'], variable: '--font-fraunces', display: 'swap' });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://webprestige.fr'),
-  title: 'WebPrestige - Sites Web Premium pour Artisans | +50% d\'Appels Clients',
-  description: 'Développeur web spécialisé dans la création de sites premium pour artisans. Augmentez vos demandes de devis de 50% avec un site optimisé SEO et conversion. Plombiers, électriciens, menuisiers : boostez votre visibilité en ligne.',
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: 'Création de Site Internet Professionnel et Site Vitrine | WebPrestige',
+    template: '%s | WebPrestige',
+  },
+  description:
+    'Création de site internet professionnel et de site vitrine pour artisans, commerçants et TPE. Commencez par une analyse gratuite de votre présence en ligne.',
   authors: [{ name: 'WebPrestige' }],
   creator: 'WebPrestige',
   publisher: 'WebPrestige',
-  alternates: {
-    canonical: 'https://webprestige.fr',
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'fr_FR',
-    url: 'https://webprestige.fr',
-    siteName: 'WebPrestige',
-    title: 'WebPrestige - Sites Web Premium pour Artisans',
-    description: 'Créez un site web qui génère des appels clients. Sites premium pour plombiers, électriciens, menuisiers et tous artisans.',
-    images: [
-      {
-        url: '/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'WebPrestige - Sites Premium pour Artisans',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'WebPrestige - Sites Web Premium pour Artisans',
-    description: 'Sites web optimisés qui génèrent +50% d\'appels clients pour artisans',
-    images: ['/og-image.jpg'],
-  },
   robots: {
     index: true,
     follow: true,
@@ -49,55 +35,67 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: '#13284a',
+};
+
 const organizationJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'WebPrestige',
-  url: 'https://webprestige.fr',
-  logo: 'https://webprestige.fr/og-image.jpg',
-  description: 'Développeur web spécialisé création de sites premium pour artisans. Plombiers, électriciens, menuisiers, couvreurs.',
-  telephone: '+33783585792',
-  email: 'contact@webprestige.fr',
+  '@id': ORG_ID,
+  name: SITE.name,
+  url: SITE.url,
+  logo: `${SITE.url}/logo.png`,
+  image: `${SITE.url}/opengraph-image`,
+  description:
+    'Création de sites internet professionnels et de sites vitrines pour artisans, commerçants et TPE, avec analyse gratuite de la présence en ligne.',
+  telephone: SITE.phone,
+  email: SITE.email,
   address: {
     '@type': 'PostalAddress',
     addressRegion: 'Île-de-France',
     addressCountry: 'FR',
   },
-  areaServed: 'FR',
-  priceRange: '€€',
-  sameAs: [],
+  areaServed: [
+    { '@type': 'AdministrativeArea', name: "Val-d'Oise" },
+    { '@type': 'AdministrativeArea', name: 'Île-de-France' },
+    { '@type': 'Country', name: 'France' },
+  ],
   knowsAbout: [
-    'Création site web artisan',
-    'SEO local artisan',
-    'Site web plombier',
-    'Site web électricien',
-    'Site web menuisier',
-    'Site web couvreur',
-    'Next.js',
-    'Tailwind CSS',
+    'Création de site internet',
+    'Site vitrine',
+    'Site internet pour artisan',
+    'Référencement local',
+    'Maintenance de site internet',
+    'Optimisation de la vitesse des sites web',
   ],
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const websiteJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${SITE.url}/#website`,
+  url: SITE.url,
+  name: SITE.name,
+  inLanguage: 'fr-FR',
+  publisher: { '@id': ORG_ID },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
-      <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#2563EB" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-      </head>
-      <body className="antialiased">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        {children}
+    <html lang="fr" className={`${inter.variable} ${fraunces.variable}`}>
+      <body className="bg-paper font-sans text-ink antialiased">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
+        <a
+          href="#contenu"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-5 focus:py-3 focus:text-white"
+        >
+          Aller au contenu
+        </a>
+        <SiteHeader />
+        <main id="contenu">{children}</main>
+        <SiteFooter />
       </body>
     </html>
   );

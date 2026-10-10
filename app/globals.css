@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-paper: #f7f5f0;
+  --color-paper-deep: #efebe2;
+  --color-ink: #141821;
+  --color-muted: #5a606d;
+  --color-line: #e3ded3;
+  --color-navy: #13284a;
+  --color-navy-deep: #0d1d37;
+  --color-navy-soft: #24406c;
+  --color-copper: #b4561b;
+  --color-copper-dark: #94450f;
+  --color-copper-soft: #f5e6d8;
+  --color-sage: #2f6b4f;
+  --color-sage-soft: #e3efe8;
+  --color-amber: #8a5a00;
+  --color-amber-soft: #fbeed3;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-fraunces), ui-serif, Georgia, serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-copper-soft);
+}
+
+/* Mise en forme des contenus longs (guides) */
+@layer components {
+  .prose-wp {
+    color: var(--color-ink);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+  .prose-wp > * + * {
+    margin-top: 1.15em;
+  }
+  .prose-wp > :first-child {
+    margin-top: 0;
+  }
+  .prose-wp h2 {
+    font-family: var(--font-display);
+    font-size: 1.85rem;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-top: 2.2em;
+    scroll-margin-top: 6rem;
+  }
+  .prose-wp h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.35;
+    margin-top: 1.8em;
+  }
+  .prose-wp p,
+  .prose-wp li {
+    color: #2b303b;
+  }
+  .prose-wp ul {
+    list-style: disc;
+    padding-left: 1.35em;
+  }
+  .prose-wp ol {
+    list-style: decimal;
+    padding-left: 1.35em;
+  }
+  .prose-wp li + li {
+    margin-top: 0.45em;
+  }
+  .prose-wp li::marker {
+    color: var(--color-copper);
+  }
+  .prose-wp a {
+    color: var(--color-copper-dark);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .prose-wp strong {
+    font-weight: 650;
+    color: var(--color-ink);
+  }
+  .prose-wp table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .prose-wp th {
+    text-align: left;
+    font-weight: 650;
+    background: var(--color-paper-deep);
+  }
+  .prose-wp th,
+  .prose-wp td {
+    border-bottom: 1px solid var(--color-line);
+    padding: 0.75em 0.9em;
+    vertical-align: top;
+  }
 }
